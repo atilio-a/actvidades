@@ -4,7 +4,7 @@
     <a href="{{ route('home') }}" class="brand-link">
         <img src="{{ asset('images/LogoGris.png') }}" alt=" Logo" class="brand-image img-circle-32 elevation-1"
             style="max-height:40px;opacity: .8">
-        <span class="brand-text font-weight-light">Magic Aligner</span>
+        <span class="brand-text font-weight-light">Actividades</span>
     </a>
     <!-- Log on to marco farfan 3888-15568587 for more projects -->
 
