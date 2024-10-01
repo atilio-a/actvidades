@@ -24,6 +24,7 @@ trait RegistersUsers
     /**
      * Handle a registration request for the application.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     public function register(Request $request)
@@ -32,15 +33,11 @@ trait RegistersUsers
 
         event(new Registered($user = $this->create($request->all())));
 
-        // caambio saco del login
-        // $this->guard()->login($user);
+        $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {
             return $response;
         }
-
-        // return back()->withErrors(['email' => 'usuario PENDIENTE de activacion. Por Favor espere que el administrador active la cuenta en 24hs .']);
-        return redirect()->route('login')->with('message', 'Cuenta creada pero usuario PENDIENTE de activacion. Por Favor espere que el administrador active la cuenta en 24hs .');
 
         return $request->wantsJson()
                     ? new JsonResponse([], 201)
@@ -59,8 +56,13 @@ trait RegistersUsers
 
     /**
      * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
      */
     protected function registered(Request $request, $user)
     {
+        //
     }
 }

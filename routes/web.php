@@ -18,6 +18,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SimulatorController;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LocalidadController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -120,10 +121,17 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/cart/change-qty', [CartController::class, 'changeQty']);
     Route::delete('/cart/delete', [CartController::class, 'delete']);
     Route::delete('/cart/empty', [CartController::class, 'empty']);
+    Route::get('/localidades', [LocalidadController::class, 'index'])->name('localidades.index');
+    Route::resource('localidades', LocalidadController::class);
 
     Route::get('/orderItems', [OrderItemController::class, 'index'])->name('orderItems.index');
 
     Route::get('/download', function () {
         return response()->download(base_path('public/documents/FORMULARIO_INICIO.pdf'));
     });
+
+    
+
+
+
 });
