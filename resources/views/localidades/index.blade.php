@@ -26,6 +26,8 @@
                 <td>{{$localidad->nombre}}</td>
                 <td>{{$localidad->departamento->nombre}}</td>
                 <td>
+                        <a href="{{ route('localidades.show', $localidad) }}" class="btn btn-success" title="Ver Datos"><i
+                                 class="fas fa-eye"></i></a>
                         <a href="{{ route('localidades.edit', $localidad) }}" class="btn btn-primary"><i
                                 class="fas fa-edit"></i></a>
                         <button class="btn btn-danger btn-delete" data-url="{{route('localidades.destroy', $localidad)}}"><i

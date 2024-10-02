@@ -127,6 +127,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     //Route::put('localidades/{localidad}/update', [LocalidadController::class, 'update'])->name('localidades.update');
     Route::put('localidades/{localidad}', [LocalidadController::class, 'update'])->name('localidades.update');
     Route::delete('localidades/{localidad}', [LocalidadController::class, 'destroy'])->name('localidades.destroy');
+    Route::get('localidades/{localidad}',    [LocalidadController::class, 'show'])->name('localidades.show');
     Route::resource('localidades', LocalidadController::class);
 
     Route::get('/orderItems', [OrderItemController::class, 'index'])->name('orderItems.index');
