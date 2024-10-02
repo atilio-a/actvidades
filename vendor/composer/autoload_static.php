@@ -351,8 +351,8 @@ class ComposerStaticInit85226ebc3a78e6ac5b7cc217d63c07a5
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -462,8 +462,8 @@ class ComposerStaticInit85226ebc3a78e6ac5b7cc217d63c07a5
         ),
         'Fruitcake\\Cors\\' => 
         array (
-            0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
-            1 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
+            0 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
+            1 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
         ),
         'Faker\\' => 
         array (
@@ -572,8 +572,10 @@ class ComposerStaticInit85226ebc3a78e6ac5b7cc217d63c07a5
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CuentaController' => __DIR__ . '/../..' . '/app/Http/Controllers/CuentaController.php',
         'App\\Http\\Controllers\\CustomerController' => __DIR__ . '/../..' . '/app/Http/Controllers/CustomerController.php',
+        'App\\Http\\Controllers\\DepartamentoController' => __DIR__ . '/../..' . '/app/Http/Controllers/DepartamentoController.php',
         'App\\Http\\Controllers\\FincaController' => __DIR__ . '/../..' . '/app/Http/Controllers/FincaController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\LocalidadController' => __DIR__ . '/../..' . '/app/Http/Controllers/LocalidadController.php',
         'App\\Http\\Controllers\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/OrderController.php',
         'App\\Http\\Controllers\\OrderItemController' => __DIR__ . '/../..' . '/app/Http/Controllers/OrderItemController.php',
         'App\\Http\\Controllers\\PDFController' => __DIR__ . '/../..' . '/app/Http/Controllers/PDFController.php',
@@ -613,7 +615,9 @@ class ComposerStaticInit85226ebc3a78e6ac5b7cc217d63c07a5
         'App\\Models\\Cuenta' => __DIR__ . '/../..' . '/app/Models/Cuenta.php',
         'App\\Models\\CuentaOrder' => __DIR__ . '/../..' . '/app/Models/CuentaOrder.php',
         'App\\Models\\Customer' => __DIR__ . '/../..' . '/app/Models/Customer.php',
+        'App\\Models\\Departamento' => __DIR__ . '/../..' . '/app/Models/Departamento.php',
         'App\\Models\\Finca' => __DIR__ . '/../..' . '/app/Models/Finca.php',
+        'App\\Models\\Localidad' => __DIR__ . '/../..' . '/app/Models/Localidad.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
         'App\\Models\\OrderItem' => __DIR__ . '/../..' . '/app/Models/OrderItem.php',
         'App\\Models\\OrderSeccion' => __DIR__ . '/../..' . '/app/Models/OrderSeccion.php',

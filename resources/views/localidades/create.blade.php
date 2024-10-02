@@ -12,10 +12,10 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="first_name">Nombre</label>
-                    <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror"
-                        id="first_name" placeholder="Nombre" value="{{ old('first_name') }}">
-                    @error('first_name')
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror"
+                        id="nombre" placeholder="nombre" value="{{ old('nombre') }}">
+                    @error('nombre')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -37,7 +37,7 @@
 
 
 
-                <button class="btn btn-success btn-block btn-lg" type="submit">Registrar Paciente</button>
+                <button class="btn btn-success btn-block btn-lg" type="submit">Registrar Localidad</button>
             </form>
         </div>
     </div>

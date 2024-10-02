@@ -12,6 +12,8 @@ class Localidad extends Model
         'nombre',
         'departamento_id'
     ];
+
+    public $timestamps = false; // Deshabilita las marcas de tiempo
     
     public function departamento()
     {

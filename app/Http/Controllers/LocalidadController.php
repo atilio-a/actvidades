@@ -10,27 +10,39 @@ class LocalidadController extends Controller
 {
     public function index()
     {
-        $localidades = Localidad::all();
+        $localidades = Localidad::with('departamento')->get();
         return view('localidades.index', compact('localidades'));
     
     }
       // Mostrar el formulario para crear una nueva localidad
     public function create()
     {
-        return view('localidades.create');
+           // Cargar todos los departamentos desde la base de datos
+        $departamentos = Departamento::all();
+        return view('localidades.create', compact('departamentos'));
     }
 
       // Almacenar una nueva localidad
     public function store(Request $request)
     {
+       
         $request->validate([
             'nombre' => 'required|string|max:255',
             'departamento_id' => 'required|exists:departamentos,id'
         ]);
 
-        Localidad::create($request->all());
+        
+        $localidad = new Localidad();
+        $localidad->nombre = $request->nombre;
+        $localidad->departamento_id = $request->departamento_id;
+        
+        $localidad->save();
+      
         return redirect()->route('localidades.index')->with('success', 'Localidad creada correctamente.');
     }
+
+
+
     public function show(Localidad $localidad)
     {
         return view('localidades.show', compact('localidad'));
@@ -38,10 +50,12 @@ class LocalidadController extends Controller
 
     // Mostrar el formulario para editar una localidad
     public function edit(Localidad $localidad)
-    {
+    {  
         $departamentos = Departamento::all();
 
+        // Retorna la vista de edición, pasando la localidad y los departamentos
         return view('localidades.edit', compact('localidad', 'departamentos'));
+    
     }
 
     // Actualizar una localidad existente
@@ -49,11 +63,15 @@ class LocalidadController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'departamento_id' => 'required|exists:departamentos,id',
+            'departamento_id' => 'required|exists:departamentos,id'
         ]);
-
-        $localidad->update($request->all());
+    
+        $localidad->nombre = $request->nombre;
+        $localidad->departamento_id = $request->departamento_id;
+        $localidad->save();
+    
         return redirect()->route('localidades.index')->with('success', 'Localidad actualizada correctamente.');
+    
     }
 
     // Eliminar una localidad

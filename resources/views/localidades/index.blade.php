@@ -3,7 +3,7 @@
 @section('title', ' Localidades')
 @section('content-header', ' Localidades')
 @section('content-actions')
-    <a href="{{route('localidades.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Registar nuevo Paciente</a>
+    <a href="{{route('localidades.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Registar nueva Localidad</a>
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">
@@ -24,7 +24,7 @@
             @foreach($localidades as $localidad)
             <tr>
                 <td>{{$localidad->nombre}}</td>
-                <td>{{$localidad->departamento_id}}</td>
+                <td>{{$localidad->departamento->nombre}}</td>
                 <td>
                         <a href="{{ route('localidades.edit', $localidad) }}" class="btn btn-primary"><i
                                 class="fas fa-edit"></i></a>

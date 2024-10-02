@@ -122,6 +122,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('/cart/delete', [CartController::class, 'delete']);
     Route::delete('/cart/empty', [CartController::class, 'empty']);
     Route::get('/localidades', [LocalidadController::class, 'index'])->name('localidades.index');
+    
+    Route::get('localidades/{localidad}/edit',   [localidadController::class, 'edit'])->name('localidades.edit');
+    //Route::put('localidades/{localidad}/update', [LocalidadController::class, 'update'])->name('localidades.update');
+    Route::put('localidades/{localidad}', [LocalidadController::class, 'update'])->name('localidades.update');
+    Route::delete('localidades/{localidad}', [LocalidadController::class, 'destroy'])->name('localidades.destroy');
     Route::resource('localidades', LocalidadController::class);
 
     Route::get('/orderItems', [OrderItemController::class, 'index'])->name('orderItems.index');
