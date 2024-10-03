@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActionController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CreditController;
@@ -77,6 +78,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('areas', AreaController::class);
 
     Route::resource('proveedores', ProveedorController::class);
+    Route::resource('actions', ActionController::class);
+
 
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
     Route::put('orders/{order}/edit', [OrderController::class, 'update'])->name('orders.update');
