@@ -42,19 +42,19 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="{{ route('localidades.index') }}" class="nav-link {{ activeSegment('localidades') }}">
-                        <i class="nav-icon fa fa-qrcode"></i>
+                        <i class="nav-icon fas fa-city"></i>
                         <p>Localidades</p>
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="{{ route('entities.index') }}" class="nav-link {{ activeSegment('entities') }}">
-                        <i class="nav-icon fa fa-qrcode"></i>
+                        <i class="nav-icon fas fa-landmark"></i>
                         <p>Entidades</p>
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="{{ route('teams.index') }}" class="nav-link {{ activeSegment('teams') }}">
-                        <i class="nav-icon fa fa-qrcode"></i>
+                        <i class="nav-icon fas fa-address-book"></i>
                         <p>Personas</p>
                     </a>
                 </li>
