@@ -18,4 +18,15 @@ class Action extends Model
     {
         return $this->belongsTo(Localidad::class);
     }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+/*
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
+        */
 }
