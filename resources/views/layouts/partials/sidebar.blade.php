@@ -35,7 +35,7 @@
 
 
                 <li class="nav-item has-treeview">
-                    <a href="{{ route('seguimiento') }}" class="nav-link {{ activeSegment('seguimiento') }}">
+                    <a href="{{ route('actions.index') }}" class="nav-link {{ activeSegment('actions') }}">
                         <i class="nav-icon fa fa-qrcode"></i>
                         <p>Actividades</p>
                     </a>
