@@ -21,6 +21,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LocalidadController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -138,6 +139,16 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::put('entities/{entity}', [EntityController::class, 'update'])->name('entities.update');
     Route::delete('entities/{entity}', [EntityController::class, 'destroy'])->name('entities.destroy');
     Route::get('entities/{entity}',    [EntityController::class, 'show'])->name('entities.show');
+
+
+    //Route::resource('teams', TeamController::class);
+    Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
+    Route::get('teams/{team}/edit',   [TeamController::class, 'edit'])->name('teams.edit');
+    Route::get('teams/create', [TeamController::class, 'create'])->name('teams.create');
+    Route::put('teams/{team}', [TeamController::class, 'update'])->name('teams.update');
+    Route::delete('teams/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
+    Route::get('teams/{team}',    [TeamController::class, 'show'])->name('teams.show');
+
 
 
     Route::get('/orderItems', [OrderItemController::class, 'index'])->name('orderItems.index');

@@ -52,6 +52,12 @@
                         <p>Entidades</p>
                     </a>
                 </li>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('teams.index') }}" class="nav-link {{ activeSegment('teams') }}">
+                        <i class="nav-icon fa fa-qrcode"></i>
+                        <p>Personas</p>
+                    </a>
+                </li>
                 @php
                     $fecha = date('Y-m-d');
                     $start_date = date('Y-m-d', strtotime('-5 days', strtotime($fecha)));
