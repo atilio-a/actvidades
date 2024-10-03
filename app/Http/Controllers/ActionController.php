@@ -7,6 +7,7 @@ use App\Models\Action;
 use App\Models\Departamento;
 use App\Models\Entity;
 use App\Models\Localidad;
+use App\Models\Team;
 
 class ActionController extends Controller
 {
@@ -22,7 +23,8 @@ class ActionController extends Controller
            // Cargar todos los departamentos desde la base de datos
         $localidades = Localidad::all();
         $entidades = Entity::all();
-        return view('actions.create', compact('localidades','entidades'));
+        $personas = Team::all();
+        return view('actions.create', compact('personas','localidades','entidades'));
     }
 
       // Almacenar una nueva action
@@ -38,6 +40,7 @@ class ActionController extends Controller
         $action = new Action();
         $action->nombre = $request->nombre;
         $action->localidad_id = $request->localidad_id;
+        $action->team_id = $request->team_id;
 
         $action->direccion = $request->direccion;
         $action->entity_id = $request->entity_id;
@@ -67,7 +70,9 @@ class ActionController extends Controller
     {  
         $localidades = Localidad::all();
         $entidades = Entity::all();
-        return view('actions.edit', compact('action','localidades','entidades'));
+        $personas = Team::all();
+       
+        return view('actions.edit', compact('action','personas','localidades','entidades'));
 
     
     }
@@ -77,11 +82,23 @@ class ActionController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'departamento_id' => 'required|exists:departamentos,id'
+            'localidad_id' => 'required|exists:localidades,id'
         ]);
     
         $action->nombre = $request->nombre;
-        $action->departamento_id = $request->departamento_id;
+        $action->localidad_id = $request->localidad_id;
+        $action->team_id = $request->team_id;
+
+        $action->direccion = $request->direccion;
+        $action->entity_id = $request->entity_id;
+        $action->fecha = $request->fecha;
+        $action->codigo = $request->codigo;
+        $action->repuesta = $request->repuesta;
+        $action->respuesta_fecha = $request->respuesta_fecha;
+        $action->telefono = $request->telefono;
+        $action->monto_estimado = $request->monto_estimado;
+        $action->tags = $request->tags;
+        $action->descripcion = $request->descripcion;
         $action->save();
     
         return redirect()->route('actions.index')->with('success', 'action actualizada correctamente.');

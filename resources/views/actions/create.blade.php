@@ -33,7 +33,15 @@
                         @endforeach
                     </select>
                 </div>
-
+                <div class="form-group">
+                    <label for="team_id">Encargado principal</label>
+                    <select name="team_id" class="form-control" required>
+                        <!-- Aquí debes cargar los team_id desde tu base de datos -->
+                        @foreach ($personas as $persona)
+                            <option value="{{ $persona->id }}"> {{ $persona->nombre }} {{ $persona->apellido }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="localidad_id">Localidad</label>
                     <select name="localidad_id" class="form-control" required>
