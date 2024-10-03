@@ -19,6 +19,7 @@ use App\Http\Controllers\SimulatorController;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LocalidadController;
+use App\Http\Controllers\EntityController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -123,12 +124,21 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('/cart/empty', [CartController::class, 'empty']);
     Route::get('/localidades', [LocalidadController::class, 'index'])->name('localidades.index');
     
-    Route::get('localidades/{localidad}/edit',   [localidadController::class, 'edit'])->name('localidades.edit');
+    Route::get('localidades/{localidad}/edit',   [LocalidadController::class, 'edit'])->name('localidades.edit');
     //Route::put('localidades/{localidad}/update', [LocalidadController::class, 'update'])->name('localidades.update');
     Route::put('localidades/{localidad}', [LocalidadController::class, 'update'])->name('localidades.update');
     Route::delete('localidades/{localidad}', [LocalidadController::class, 'destroy'])->name('localidades.destroy');
     Route::get('localidades/{localidad}',    [LocalidadController::class, 'show'])->name('localidades.show');
     Route::resource('localidades', LocalidadController::class);
+
+    Route::resource('entities', EntityController::class);
+    Route::get('/entities', [EntityController::class, 'index'])->name('entities.index');
+    Route::get('entities/{entity}/edit',   [EntityController::class, 'edit'])->name('entities.edit');
+    Route::get('entities/create', [EntityController::class, 'create'])->name('entities.create');
+    Route::put('entities/{entity}', [EntityController::class, 'update'])->name('entities.update');
+    Route::delete('entities/{entity}', [EntityController::class, 'destroy'])->name('entities.destroy');
+    Route::get('entities/{entity}',    [EntityController::class, 'show'])->name('entities.show');
+
 
     Route::get('/orderItems', [OrderItemController::class, 'index'])->name('orderItems.index');
 
