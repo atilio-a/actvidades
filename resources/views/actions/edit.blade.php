@@ -24,6 +24,18 @@
             </div>
 
             <div class="form-group">
+                <label for="entity_id">localidad</label>
+                <select name="entity_id" class="form-control" required>
+                    <!-- Aquí debes cargar los localidads desde tu base de datos -->
+                    @foreach ($entidades as $entidad)
+                        <option value="{{ $entidad->id }}" {{ $action->entity_id == $entidad->id ? 'selected' : '' }}>
+                            {{ $entidad->nombre }}
+                        </option>
+                    @endforeach
+                    
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="localidad_id">localidad</label>
                 <select name="localidad_id" class="form-control" required>
                     <!-- Aquí debes cargar los localidads desde tu base de datos -->
