@@ -123,7 +123,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('/cart/empty', [CartController::class, 'empty']);
     Route::get('/localidades', [LocalidadController::class, 'index'])->name('localidades.index');
     
-    Route::get('localidades/{localidad}/edit',   [localidadController::class, 'edit'])->name('localidades.edit');
+
+    Route::get('localidades/create',   [LocalidadController::class, 'create'])->name('localidades.create');
+
+    Route::get('localidades/{localidad}/edit',   [LocalidadController::class, 'edit'])->name('localidades.edit');
     //Route::put('localidades/{localidad}/update', [LocalidadController::class, 'update'])->name('localidades.update');
     Route::put('localidades/{localidad}', [LocalidadController::class, 'update'])->name('localidades.update');
     Route::delete('localidades/{localidad}', [LocalidadController::class, 'destroy'])->name('localidades.destroy');
