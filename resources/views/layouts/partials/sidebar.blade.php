@@ -58,6 +58,21 @@
                         <p>Personas</p>
                     </a>
                 </li>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('programs.index') }}" class="nav-link {{ activeSegment('program') }}">
+                        <i class="nav-icon fas fa-address-book"></i>
+                        <p>Programas</p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('projects.index') }}" class="nav-link {{ activeSegment('project') }}">
+                        <i class="nav-icon fas fa-address-book"></i>
+                        <p>Poyectos</p>
+                    </a>
+                </li>
+
+
                 @php
                     $fecha = date('Y-m-d');
                     $start_date = date('Y-m-d', strtotime('-5 days', strtotime($fecha)));
