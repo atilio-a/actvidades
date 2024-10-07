@@ -21,10 +21,13 @@ use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LocalidadController;
 use App\Http\Controllers\EntityController;
+use App\Http\Controllers\OutletController;
+use App\Http\Controllers\OutletMapController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Stmt\Echo_;
 
 /* NOOOOOOOOOOOOO tocar siempre comenta
 Route::get('generate', function () {
@@ -160,7 +163,24 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         return response()->download(base_path('public/documents/FORMULARIO_INICIO.pdf'));
     });
 
+    Route::get('/our_outlets', [OutletMapController::class, 'index'])->name('outlet_map.index');
+
     
+Route::resource('outlets', OutletController::class);
+Route::get('/our_outlets', [OutletMapController::class, 'index'])->name('outlet_map.index');
+
+
+Route::get('/image-upload', function () {
+     echo('/login');
+});
+Route::post('/image-upload', function () {
+    echo('/login');
+})->name('imageUpload');
+// Create image upload form
+//Route::get('/image-upload', 'FileUpload@createForm');
+
+// Store image
+//Route::post('/image-upload', 'FileUpload@fileUpload')->name('imageUpload');
 
 
 
