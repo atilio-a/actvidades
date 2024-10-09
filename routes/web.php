@@ -25,6 +25,8 @@ use App\Http\Controllers\OutletController;
 use App\Http\Controllers\OutletMapController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProgramController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Stmt\Echo_;
@@ -147,13 +149,30 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('entities/{entity}',    [EntityController::class, 'show'])->name('entities.show');
 
 
-    //Route::resource('teams', TeamController::class);
+    Route::resource('teams', TeamController::class);
     Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
     Route::get('teams/{team}/edit',   [TeamController::class, 'edit'])->name('teams.edit');
     Route::get('teams/create', [TeamController::class, 'create'])->name('teams.create');
     Route::put('teams/{team}', [TeamController::class, 'update'])->name('teams.update');
     Route::delete('teams/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
     Route::get('teams/{team}',    [TeamController::class, 'show'])->name('teams.show');
+
+   
+    Route::resource('programs', ProjectController::class);
+    Route::get('/programs', [ProgramController::class, 'index'])->name('programs.index');
+    Route::get('programs/{program}/edit',   [ProgramController::class, 'edit'])->name('programs.edit');
+    Route::get('programs/create', [ProgramController::class, 'create'])->name('programs.create');
+    Route::put('programs/{program}', [ProgramController::class, 'update'])->name('programs.update');
+    Route::delete('programs/{program}', [ProgramController::class, 'destroy'])->name('programs.destroy');
+    Route::get('programs/{program}',    [ProgramController::class, 'show'])->name('programs.show');
+
+    Route::resource('projects', ProjectController::class);
+    Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+    Route::get('projects/{project}/edit',   [ProjectController::class, 'edit'])->name('projects.edit');
+    Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
+    Route::put('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
+    Route::delete('projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+    Route::get('projects/{project}',    [ProjectController::class, 'show'])->name('projects.show');
 
 
 
