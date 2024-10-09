@@ -112,7 +112,9 @@ class UserController extends Controller
         );
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
+        $user->telefono = $request->telefono;
         $user->email = $request->email;
+        $user->entity_id = $request->entity_id;
         $user->rol = $request->rol;
         if (!empty($request->password)) {
             $user->password = Hash::make($request->password);

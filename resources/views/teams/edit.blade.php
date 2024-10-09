@@ -2,6 +2,9 @@
 
 @section('title', ' Personas')
 @section('content-header', ' Personas')
+@section('content-actions')
+    <a href="{{ route('teams.index') }}" class="btn btn-success"><i class="fas fa-eye">Cancelar</i></a>
+@endsection
 
 @section('content')
 

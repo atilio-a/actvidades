@@ -4,6 +4,7 @@
 @section('content-header', ' Programa')
 @section('content-actions')
     <a href="{{route('programs.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Registar nuevo Programa</a>
+    
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">

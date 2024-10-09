@@ -2,6 +2,9 @@
 
 @section('title', ' Programa')
 @section('content-header', 'Programa')
+@section('content-actions')
+    <a href="{{ route('programs.index') }}" class="btn btn-success"><i class="fas fa-eye"> Cancelar</i></a>
+@endsection
 
 @section('content')
 

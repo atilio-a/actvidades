@@ -2,7 +2,9 @@
 
 @section('title', ' Programa')
 @section('content-header', ' Programa')
-
+@section('content-actions')
+    <a href="{{ route('programs.index') }}" class="btn btn-success"><i class="fas fa-eye"> Cancelar</i></a>
+@endsection
 @section('content')
 
     <div class="card">
@@ -50,7 +52,7 @@
 
 
 
-                <button class="btn btn-success btn-block btn-lg" type="submit">Modificar la persona</button>
+                <button class="btn btn-success btn-block btn-lg" type="submit">Modificar el Programa</button>
             </form>
         </div>
     </div>

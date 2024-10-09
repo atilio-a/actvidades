@@ -2,6 +2,9 @@
 
 @section('title', ' Localidades')
 @section('content-header', ' Localidades')
+@section('content-actions')
+    <a href="{{ route('localidades.index') }}" class="btn btn-success"><i class="fas fa-eye">Cancelar</i></a>
+@endsection
 
 @section('content')
 

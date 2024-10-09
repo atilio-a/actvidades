@@ -2,6 +2,9 @@
 
 @section('title', ' Proyecto')
 @section('content-header', 'Proyecto')
+@section('content-actions')
+    <a href="{{ route('projects.index') }}" class="btn btn-success"><i class="fas fa-eye">Cancelar</i></a>
+@endsection
 
 @section('content')
 

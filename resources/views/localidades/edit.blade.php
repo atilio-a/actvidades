@@ -2,6 +2,9 @@
 
 @section('title', 'Editar Localidad')
 @section('content-header', 'Modificar Localidad')
+@section('content-actions')
+    <a href="{{ route('localidades.index') }}" class="btn btn-success"><i class="fas fa-eye">Cancelar</i></a>
+@endsection
 
 @section('content')
 
@@ -11,6 +14,7 @@
         <form action="{{ route('localidades.update', $localidad) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+
 
             <div class="form-group">
                 <label for="name">Nombre</label>

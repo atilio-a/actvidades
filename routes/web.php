@@ -25,6 +25,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,8 @@ Route::get('generate', function () {
 
 Route::get('pdf', [PDFController::class, 'index']);
 Route::get('logout', 'App\Http\Controllers\Auth\LoginController@logout');
+
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 
 Route::get('/', function () {
     return redirect('/login');
@@ -128,14 +131,16 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/cart/change-qty', [CartController::class, 'changeQty']);
     Route::delete('/cart/delete', [CartController::class, 'delete']);
     Route::delete('/cart/empty', [CartController::class, 'empty']);
-    Route::get('/localidades', [LocalidadController::class, 'index'])->name('localidades.index');
     
+    
+    Route::get('/localidades', [LocalidadController::class, 'index'])->name('localidades.index');
+    Route::get('localidades/create', [LocalidadController::class, 'create'])->name('localidades.create');
     Route::get('localidades/{localidad}/edit',   [LocalidadController::class, 'edit'])->name('localidades.edit');
-    //Route::put('localidades/{localidad}/update', [LocalidadController::class, 'update'])->name('localidades.update');
-    Route::put('localidades/{localidad}', [LocalidadController::class, 'update'])->name('localidades.update');
+    Route::put('localidades/{localidad}',    [LocalidadController::class, 'update'])->name('localidades.update');
+    Route::post('/localidades', [LocalidadController::class, 'store'])->name('localidades.store');
     Route::delete('localidades/{localidad}', [LocalidadController::class, 'destroy'])->name('localidades.destroy');
     Route::get('localidades/{localidad}',    [LocalidadController::class, 'show'])->name('localidades.show');
-    Route::resource('localidades', LocalidadController::class);
+   
 
     Route::resource('entities', EntityController::class);
     Route::get('/entities', [EntityController::class, 'index'])->name('entities.index');
@@ -155,7 +160,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('teams/{team}',    [TeamController::class, 'show'])->name('teams.show');
 
    
-    Route::resource('programs', ProjectController::class);
+    Route::resource('programs', ProgramController::class);
     Route::get('/programs', [ProgramController::class, 'index'])->name('programs.index');
     Route::get('programs/{program}/edit',   [ProgramController::class, 'edit'])->name('programs.edit');
     Route::get('programs/create', [ProgramController::class, 'create'])->name('programs.create');
