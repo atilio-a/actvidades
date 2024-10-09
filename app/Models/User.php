@@ -15,13 +15,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-          'first_name', 
-          'last_name',
-          'telefono',
-          'email',
-          'password',
-          'entity_id',
-          'rol',
+          'especializacion','first_name', 'last_name','calle','numero','departamento','ciudad','pais','codigo_postal',
+        'telefono','telefono_consultorio','nombre_comercial', 'email', 'password', 'rol',
     ];
 
     /**
@@ -60,9 +55,5 @@ class User extends Authenticatable
     public function getAvatar()
     {
         return 'https://www.gravatar.com/avatar/'.md5($this->email);
-    }
-    public function entity()
-    {
-        return $this->belongsTo(Entity::class);
     }
 }

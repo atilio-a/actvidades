@@ -23,5 +23,3 @@ CREATE TABLE `projects` (
 
 ALTER TABLE `actions` CHANGE `program_id` `program_id` INT(100) NULL DEFAULT NULL;
 ALTER TABLE `actions` CHANGE `proyecto` `project_id` INT(100) NULL DEFAULT NULL;
-
-ALTER TABLE `categories` ADD `user_id` INT NULL AFTER `descripcion`, ADD `created_at` DATE NULL AFTER `user_id`, ADD `updated_at` DATE NOT NULL AFTER `created_at`;
