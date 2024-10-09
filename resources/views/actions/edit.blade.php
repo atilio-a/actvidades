@@ -38,8 +38,8 @@
 
 
             <div class="form-group">
-                <label for="localidad_id">Encargado principal</label>
-                <select name="localidad_id" class="form-control" required>
+                <label for="team_id">Encargado principal</label>
+                <select name="team_id" class="form-control" required>
                     <!-- Aquí debes cargar los localidads desde tu base de datos -->
                     @foreach ($personas as $persona)
                         <option value="{{ $persona->id }}" {{ $action->team_id == $persona->id ? 'selected' : '' }}>
@@ -49,6 +49,35 @@
                     
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="program_id">Programa</label>
+                <select name="program_id" class="form-control" required>
+                    <!-- Aquí debes cargar los localidads desde tu base de datos -->
+                    @foreach ($programs as $programa)
+                        <option value="{{ $programa->id }}" {{ $action->program_id == $programa->id ? 'selected' : '' }}>
+                            {{ $programa->nombre }} 
+                        </option>
+                    @endforeach
+                    
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="project_id">Proyecto</label>
+                <select name="project_id" class="form-control" required>
+                    <!-- Aquí debes cargar los localidads desde tu base de datos -->
+                    @foreach ($projects as $project)
+                        <option value="{{ $project->id }}" {{ $action->project_id == $project->id ? 'selected' : '' }}>
+                            {{ $project->nombre }} 
+                        </option>
+                    @endforeach
+                    
+                </select>
+            </div>
+
+
 
             <div class="form-group">
                 <label for="localidad_id">localidad</label>

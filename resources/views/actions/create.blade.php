@@ -42,6 +42,27 @@
                         @endforeach
                     </select>
                 </div>
+
+
+                <div class="form-group">
+                    <label for="team_id">Programa</label>
+                    <select name="program_id" class="form-control" required>
+                        <!-- Aquí debes cargar los team_id desde tu base de datos -->
+                        @foreach ($programs as $programa)
+                            <option value="{{ $programa->id }}"> {{ $programa->nombre }} </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="team_id">Proyecto</label>
+                    <select name="project_id" class="form-control" required>
+                        <!-- Aquí debes cargar los team_id desde tu base de datos -->
+                        @foreach ($projects as $proyecto)
+                            <option value="{{ $proyecto->id }}"> {{ $proyecto->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="localidad_id">Localidad</label>
                     <select name="localidad_id" class="form-control" required>

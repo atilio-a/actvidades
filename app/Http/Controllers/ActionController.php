@@ -7,6 +7,8 @@ use App\Models\Action;
 use App\Models\Departamento;
 use App\Models\Entity;
 use App\Models\Localidad;
+use App\Models\Program;
+use App\Models\Project;
 use App\Models\Team;
 
 class ActionController extends Controller
@@ -24,7 +26,10 @@ class ActionController extends Controller
         $localidades = Localidad::all();
         $entidades = Entity::all();
         $personas = Team::all();
-        return view('actions.create', compact('personas','localidades','entidades'));
+
+        $programs = Program::all();
+        $projects = Project::all();
+        return view('actions.create', compact('programs','projects','personas','localidades','entidades'));
     }
 
       // Almacenar una nueva action
@@ -41,7 +46,8 @@ class ActionController extends Controller
         $action->nombre = $request->nombre;
         $action->localidad_id = $request->localidad_id;
         $action->team_id = $request->team_id;
-
+        $action->program_id = $request->program_id;
+        $action->project_id = $request->project_id;
         $action->direccion = $request->direccion;
         $action->entity_id = $request->entity_id;
         $action->fecha = $request->fecha;
@@ -71,8 +77,10 @@ class ActionController extends Controller
         $localidades = Localidad::all();
         $entidades = Entity::all();
         $personas = Team::all();
+        $programs = Program::all();
+        $projects = Project::all();
        
-        return view('actions.edit', compact('action','personas','localidades','entidades'));
+        return view('actions.edit', compact('action','programs','projects','personas','localidades','entidades'));
 
     
     }
@@ -88,7 +96,8 @@ class ActionController extends Controller
         $action->nombre = $request->nombre;
         $action->localidad_id = $request->localidad_id;
         $action->team_id = $request->team_id;
-
+        $action->program_id = $request->program_id;
+        $action->project_id = $request->project_id;
         $action->direccion = $request->direccion;
         $action->entity_id = $request->entity_id;
         $action->fecha = $request->fecha;
