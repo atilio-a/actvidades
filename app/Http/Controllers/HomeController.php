@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
-use App\Models\Order;
-use App\Models\Payment;
 use App\Models\User;
 use App\Models\Action;
 use App\Models\Entity;

@@ -23,6 +23,15 @@ class Action extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class);
+    }
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
 /*
     public function teams()
     {
