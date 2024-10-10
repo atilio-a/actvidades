@@ -14,8 +14,13 @@ class Outlet extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'celular', 'email', 'observacion','address', 'latitude', 'longitude', 'creator_id',
+        'action_id','name', 'celular', 'email', 'observacion','address', 'latitude', 'longitude', 'creator_id',
     ];
+
+    public function action()
+    {
+        return $this->belongsTo(Action::class);
+    }
 
     /**
      * The accessors to append to the model's array form.
