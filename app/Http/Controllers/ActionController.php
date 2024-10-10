@@ -60,8 +60,10 @@ class ActionController extends Controller
         $action->descripcion = $request->descripcion;
         
         $action->save();
+        return redirect()->route('outlets.create', ['action_id' => $action->id])->with('success', 'Actividad creada correctamente.');
       
-        return redirect()->route('actions.index')->with('success', 'action creada correctamente.');
+
+       // return redirect()->route('actions.index')->with('success', 'action creada correctamente.');
     }
 
 

@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', __('outlet.create'))
+@section('title', __('Registar Mapa'))
 
 @section('content')
 
@@ -59,13 +59,17 @@ var mapCenter = [{{ request('latitude', config('leaflet.map_center_latitude')) }
 <div class="row justify-content-center">
     <div class="col-md-10">
         <div class="card">
-            <div class="card-header"><i class="fa fa-map-marker text-primary" aria-hidden="true"></i> {{ __('Marcar en el Mapa') }} <i class="fa fa-map-marker text-primary" aria-hidden="true"></i></div>
+            <div class="card-header"><i class="fa fa-map-marker text-primary" aria-hidden="true"></i> {{ __('Marcar en el Mapa( Usar el mouse en la imagen del mapa)') }} <i class="fa fa-map-marker text-primary" aria-hidden="true"></i></div>
             <form method="POST" action="{{ route('outlets.store') }}" accept-charset="UTF-8">
                 {{ csrf_field() }}
                 <div class="card-body">
-                    <div class="form-group">
+
+                    <label for="name" class="control-label">Actividad: {{ $action->nombre}}</label>
+
+                    <div class="d-none">
                         <label for="name" class="control-label">{{ __('Nombre') }}</label>
-                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required>
+                        <input id="name" type="text" class="form-control" name="action_id" value="{{ $action->id }}" >
+                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $action->nombre }}" >
                         {!! $errors->first('name', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                     </div>
                     <!--div class="form-group">
@@ -75,12 +79,12 @@ var mapCenter = [{{ request('latitude', config('leaflet.map_center_latitude')) }
                     </div-->
                   
                 
-                     <div class="row">
+                     <div class="d-none">
                        
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="celular" class="control-label">Celular <i class="fa fa-phone text-primary"></i></label>
-                                <input id="celular" type="text" class="form-control{{ $errors->has('celular') ? ' is-invalid' : '' }}" name="celular" value="{{ old('celular', request('celular')) }}" required>
+                                <input id="celular" type="text" class="form-control{{ $errors->has('celular') ? ' is-invalid' : '' }}" name="celular" value="{{ old('celular', request('celular')) }}" >
                                 {!! $errors->first('celular', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                             </div>
                         </div>
@@ -94,7 +98,7 @@ var mapCenter = [{{ request('latitude', config('leaflet.map_center_latitude')) }
                         </div>
                     </div>
                     
-                    <div class="row">
+                    <div class="d-none">
                        
                         <div class="col-md-6">
                             <div class="form-group">
@@ -136,7 +140,7 @@ var mapCenter = [{{ request('latitude', config('leaflet.map_center_latitude')) }
                 </div>
                 <div class="card-footer">
                     <input type="submit" value="Registrar" class="btn btn-success">
-                    <a href="{{ route('outlets.index') }}" class="btn btn-link">{{ __('cancelar') }}</a>
+                    <a href="{{ route('actions.index') }}" class="btn btn-link">{{ __('cancelar') }}</a>
                 </div>
             </form>
         </div>
