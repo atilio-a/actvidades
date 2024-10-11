@@ -81,7 +81,7 @@ class OutletMapController extends Controller
         ]);
         */
         $initialMarkers= $geoJSONdata;
-        return view('welcome', compact('initialMarkers'));
+        return view('outlets.map', compact('initialMarkers'));
       //  return view('outlets.map', compact('geoJSONdata'));
     }
 }
