@@ -68,7 +68,7 @@
                         
                         <td>{{$user->first_name}}</td>
                         <td>{{$user->last_name}}</td>
-                        <td>{{$user->ciudad}}</td>
+                        <td>{{$user->entity->nombre}}</td>
                         <td>{{$user->telefono}}</td>
                         <td>{{$user->rol}}</td>
                         <td>{{$user->email}}</td>
