@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Action;
 use App\Models\Image;
 use App\Models\Outlet;
 use Illuminate\Http\Request;
@@ -29,11 +30,13 @@ class OutletController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
         //$this->authorize('create', new Outlet);
-
-        return view('outlets.create');
+       $action_id= $request->get("action_id");
+       $action = Action::find($action_id);
+//print_r($action);
+        return view('outlets.create', compact('action'));
     }
 
     /**
@@ -48,12 +51,12 @@ class OutletController extends Controller
 
         $newOutlet = $request->validate([
             'name'      => 'required|max:60',
-            'address'   => 'nullable|max:255',
+            'action_id'   => 'nullable',
             'observacion'   => 'nullable|max:255',
             'celular'   => 'nullable|max:25',
             'email'     => 'nullable|email',
-            'latitude'  => 'nullable|required_with:longitude|max:15',
-            'longitude' => 'nullable|required_with:latitude|max:15',
+            'latitude'  => 'required|required_with:longitude|max:15',
+            'longitude' => 'required|required_with:latitude|max:15',
         ]);
 		
 		if(empty(auth()->id())){
@@ -63,7 +66,9 @@ class OutletController extends Controller
 
         $outlet = Outlet::create($newOutlet);
 
-        return redirect()->route('outlets.show', $outlet);
+        return redirect()->route('actions.index');
+       // return redirect()->route('outlet_map.index');
+    
     }
 
     /**
@@ -81,8 +86,9 @@ class OutletController extends Controller
         $imagenes = $imgQuery->paginate(5);
         
        // print_r($imagenes);
-        
-        return view('outlets.show', compact('outlet','imagenes') );
+       return view('outlets.mostrar', compact('outlet','imagenes') );
+ 
+       // return view('outlets.show', compact('outlet','imagenes') );
     }
 
     /**
@@ -93,7 +99,7 @@ class OutletController extends Controller
      */
     public function edit(Outlet $outlet)
     {
-        $this->authorize('update', $outlet);
+      //  $this->authorize('update', $outlet);
 
         return view('outlets.edit', compact('outlet'));
     }

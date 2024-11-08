@@ -1,49 +1,16 @@
-@extends('layouts.admin2')
+@extends('layouts.admin')
 
 @section('title', 'Editar action')
 @section('content-header', 'Modificar Actividad')
 
 @section('content')
-
-<style>
-  
-    .select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #cdd3f1;
-    border: 1px solid #3c3ff3;
-    border-radius: 4px;
-    cursor: default;
-    float: left;
-    margin-right: 5px;
-    margin-top: 5px;
-    padding: 0 5px;
-}
-
-
-.select2-red + .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background-color: #f1a5e5;
-  border: 1px solid #d1089f;
-  border-radius: 4px;
-  cursor: default;
-  float: left;
-  margin-right: 5px;
-  margin-top: 5px;
-  padding: 0 5px;
-}
-</style>
-<script>
-    $(document).ready(function() {
-        // Initialize Select2
-        $(".js-example-responsive").select2({
-           
-           width: 'resolve' // need to override the changed default
-         });
-        $(".js-example").select2({
-           
-    width: 'resolve' // need to override the changed default
-  });
-    });
-    
-  </script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+<select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+    <option value="AL">Alabama</option>
+      ...
+    <option value="WY">Wyoming</option>
+  </select>
 <div class="card">
     <div class="card-body">
 
@@ -75,7 +42,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="entity_id">Entidades secundarias </label>
+                <label for="entity_id">Entidades secundarias <span class="alert alert-success">(Mantener  Pulsado las teclas Ctrl para seleccionar mas registros)</span></label>
 
                 @php 
                 $selected = []; ;
@@ -87,10 +54,7 @@
                
               //  print_r ($selected);
                 @endphp
-
-<select name="entidades[]" class="form-control js-example-responsive" multiple="multiple" style="width: 95%">
-
-                <!-- select  class="form-control" name="entidades[]" style="width: 100%;" multiple -->
+                <select  class="form-control" name="entidades[]" style="width: 100%;" multiple>
                     <!-- Aquí debes cargar los departamentos desde tu base de datos -->
                     @foreach ($entidades as $entidad)
                         <option value="{{ $entidad->id }}" {{ (in_array($entidad->id, $selected)) ? 'selected ' : '' }}>{{ $entidad->nombre }}</option>
@@ -113,7 +77,7 @@
             </div>
 
             <div class="form-group">
-                <label for="entity_id">Personas Involucradas</label>
+                <label for="entity_id">Personas Involucradas</label><span class="alert alert-success">(Mantener  Pulsado las teclas Ctrl para seleccionar mas registros)</span>
 
                 @php 
                $selected2= [];  ;
@@ -124,10 +88,7 @@
                
              //  print_r ($selected2);
                 @endphp
-               <select name="teams[]" class="form-control js-example select2-red" multiple="multiple" style="width: 95%">
-
-
-                <!-- select  class="form-control" name="teams[]" style="width: 100%;" multiple -->
+                <select  class="form-control" name="teams[]" style="width: 100%;" multiple>
                     <!-- Aquí debes cargar los departamentos desde tu base de datos -->
                     @foreach ($personas as $persona)
                         <option value="{{ $persona->id }}" {{ (in_array($persona->id, $selected2)) ? 'selected ' : '' }}>{{ $persona->nombre }}  {{ $persona->apellido }}</option>
@@ -299,7 +260,10 @@
 <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <script>
     $(document).ready(function () {
-        bsCustomFileInput.init();
+        $('.js-example-basic-multiple').select2();
+       // bsCustomFileInput.init();
     });
+
+
 </script>
 @endsection

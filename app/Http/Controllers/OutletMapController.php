@@ -81,7 +81,48 @@ class OutletMapController extends Controller
         ]);
         */
         $initialMarkers= $geoJSONdata;
-        return view('welcome', compact('initialMarkers'));
+        return view('outlets.map', compact('initialMarkers'));
+      //  return view('outlets.map', compact('geoJSONdata'));
+    }
+
+
+    public function region(Request $request)
+    {
+      //  echo  'Feature';
+        $outlets = ModelsOutlet::all();
+
+        $geoJSONdata = $outlets->map(function ($outlet) {
+            return [
+                    'properties' => new OutletResource($outlet),
+                  
+                    'position' => [
+                                        'lat' => $outlet->latitude,
+                                        'dato' =>  $outlet->name,
+                                        'lng' => $outlet->longitude
+                                    ],
+                    /*
+
+                    'type'       => 'Feature',
+                    'properties' => new OutletResource($outlet),
+                    'geometry'   => [
+                        'type'        => 'Point',
+                        'coordinates' => [
+                            $outlet->longitude,
+                            $outlet->latitude,
+                        ],
+                    
+                    ],*/
+            ];
+        });
+      ///  echo $geoJSONdata;
+/*
+        return response()->json([
+            'type'     => 'FeatureCollection',
+            'features' => $geoJSONdata,
+        ]);
+        */
+        $initialMarkers= $geoJSONdata;
+        return view('welcome', compact('initialMarkers', 'outlets'));
       //  return view('outlets.map', compact('geoJSONdata'));
     }
 }

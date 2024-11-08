@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Document extends Model
 {
     protected $fillable = [
         'name',
 
         'action_id',
          'outlet_id', 
-        'image_path'
+        'path'
     ];
 
 

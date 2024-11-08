@@ -4,19 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class ActionTeam extends Model
 {
+    protected $table = 'actions_teams';
     protected $fillable = [
-        'name',
-
         'action_id',
-         'outlet_id', 
-        'image_path'
+        'teams_id',
+        
     ];
-
-
     public function action()
     {
         return $this->belongsTo(Action::class);
+    }
+
+    
+    public function team()
+    {
+        return $this->belongsTo(Team::class, 'teams_id');
     }
 }
