@@ -4,11 +4,14 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Escuelas Rurales de Jujuy</title>
+        <script src="{{ asset('js/app.js') }}" defer></script>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <!-- Styles -->
         <style>
             html, body {
@@ -65,19 +68,7 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+           
 
             <div class="content">
                 <div class="title m-b-md">
@@ -85,15 +76,17 @@
                 </div>
 
                 <div class="links">
-                    <a href="documents/ACUERDO DE TRATAMIENTO FASE 1.pdf">ACUERDO DE TRATAMIENTO FASE 1</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                    <a href="#">Todas las Regiones </a>
+                     <a href="#/region1">Region I</a>
+                     <a href="#/region2">Region II</a>
+
+                     <a href="#/region3">Region III</a>
+
+                     <a href="#/region4">Region IV</a>
+
+                     <a href="#/region5">Region V</a>
+
+                         </div>
 
                 <style>
                     .text-center {
@@ -108,7 +101,7 @@
             </head>
             
             <body>
-                <h1 class='text-center'>Laravel Leaflet Maps
+                <h1 class='text-center'>Escuelas Rurales de Jujuy by Marco Antonio Farfan
 
                     <?php //echo json_encode($initialMarkers); ?>
                 </h1>
@@ -117,14 +110,14 @@
                 <script src='https://unpkg.com/leaflet@1.8.0/dist/leaflet.js' crossorigin=''></script>
                 <script>
                     let map, markers = [];
-                    /* ----------------------------- Initialize Map ----------------------------- */
+                    /* ------------------------------24.25326425032, -64.60074314945  Initialize Map ----------------------------- */
                     function initMap() {
                         map = L.map('map', {
                             center: {
-                                lat: {{ config('leaflet.map_center_latitude') }},
-                                lng: {{ config('leaflet.map_center_longitude') }},
+                                lat: -24.25326425032,//  lat: {{ config('leaflet.map_center_latitude') }},
+                                lng: -64.60074314945,// lng: {{ config('leaflet.map_center_longitude') }},
                             },
-                            zoom: 15
+                            zoom: 11.8
                         });
             
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -137,24 +130,25 @@
                         initMarkers();
                     }
                     initMap();
-
-var circle = L.circle([ -24.24317183888, -65.22973307560], {
-    color: 'red',
+// -24.23009861529, -64.86227886967  -24.23009861529, -64.86227886967   24.25705956872, -64.79934153766
+var circle = L.circle([  -24.25705956872, -64.79934153766], {
+    color: '#f03#f1d7d4',
     fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 800
+    fillOpacity: 0.2,
+    radius: 20000
 }).addTo(map);
               
-var circle = L.circle([-24.26732188955, -65.21053895260], {
+var circle = L.circle([-24.29770540722, -64.64330611739], {
     color: 'green',
     fillColor: 'green',
     fillOpacity: 0.5,
     radius: 800
 }).addTo(map);
 var polygon = L.polygon([
-    [-24.24, -65.20],
-    [-24.254, -65.21324162],
-    [-24.254, -65.22324162],
+    [-24.13238096380, -64.82991388983 ],
+    [-24.25138611272, -64.61167431409],
+    [-24.36218781527, -64.69785780616],
+    [-24.34842598111, -64.98619544033],
 ]).addTo(map);
 
 
@@ -215,6 +209,33 @@ map.on('click', function(e) {
                         console.log($event.target.getLatLng());
                     }
                 </script>
+
+
+
+                <table class="table table-sm table-responsive-sm">
+                <thead>
+                    <tr class="success">
+                        <th class="text-center">{{ __('#') }}</th>
+                        <th>{{ __('Escuelas Nombre') }}</th>
+                       
+                        
+                        <th class="text-center">{{ __('Accion') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($outlets as $key => $outlet)
+                    <tr class="info">
+                        <td class="text-center"><i class="fas fa-clock" ></i>{{ $outlet->id }}</td>
+                        <td>{!! $outlet->name_link !!}</td>
+                        
+                       
+                        <td class="text-center">
+                            <a href="{{ route('outlets.mostrar', $outlet) }}" id="show-outlet-{{ $outlet->id }}">{{ __('Ver Detalle') }}</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
             </body>
             
             </div>

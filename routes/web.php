@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DocumentUpload;
 use App\Http\Controllers\FincaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LocalidadController;
 use App\Http\Controllers\EntityController;
+use App\Http\Controllers\FileUpload;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\OutletMapController;
 use App\Http\Controllers\UsuarioController;
@@ -38,9 +40,19 @@ Route::get('generate', function () {
 });
 
 */
+Route::get('/region', [OutletMapController::class, 'region'])->name('outlet_map.region');
+
+Route::get('outlets/{outlet}/show', [OutletController::class, 'show'])->name('outlets.mostrar');
+
 
 Route::get('pdf', [PDFController::class, 'index']);
 Route::get('logout', 'App\Http\Controllers\Auth\LoginController@logout');
+
+// Create image upload form
+Route::get('/image-upload', 'FileUpload@createForm');
+
+// Store image
+Route::post('/image-upload', 'FileUpload@fileUpload')->name('imageUpload');
 
 Route::get('/', function () {
     return redirect('/login');
@@ -86,6 +98,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::resource('proveedores', ProveedorController::class);
     Route::resource('actions', ActionController::class);
+    Route::get('actions/{action}/secundario', [ActionController::class, 'secundario'])->name('actions.secundario');
+    Route::post('actions/{action}/secundario', [ActionController::class, 'storeSecundario'])->name('actions.storeSecundario');
+
+    Route::get('actions/{action}/documentUpload', [ActionController::class, 'documentUpload'])->name('actions.documentUpload');
+
+
+
 
 
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
@@ -189,12 +208,28 @@ Route::resource('outlets', OutletController::class);
 Route::get('/our_outlets', [OutletMapController::class, 'index'])->name('outlet_map.index');
 
 
+// Create image upload form
+Route::get('/image-upload', 'FileUpload@createForm');
+
+// Store image
+Route::post('/image-upload', [FileUpload::class, 'fileUpload'])->name('imageUpload');
+// Create document pdf  upload form
+Route::get('/document-upload', 'DocumentUpload@createForm');
+
+// Store image
+Route::post('/document-upload', [DocumentUpload::class, 'DocumentUpload'])->name('documentUpload');
+
+
+
+
+/*
 Route::get('/image-upload', function () {
-     echo('/login');
+     echo('/login11111111');
 });
 Route::post('/image-upload', function () {
-    echo('/login');
+    echo('/login2');
 })->name('imageUpload');
+*/
 // Create image upload form
 //Route::get('/image-upload', 'FileUpload@createForm');
 

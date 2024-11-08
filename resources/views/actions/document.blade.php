@@ -14,8 +14,6 @@
                 class="fa fa-map-marker"></i> Registar en mapa<i class="fa fa-map-marker"></i></a>
     @endif
 
-    <a href="{{ route('actions.documentUpload',  $action->id) }}" class="btn btn-danger"><i
-        class="fa fa-file-pdf-o"></i> Registar Documentos<i class="fa fa-file-pdf"></i></a>
 
     <div class="card">
         <div class="card-body">
@@ -139,23 +137,6 @@
                         disabled value="{{ old('Proyecto:', $action->project->nombre) }}">
                     </div>
 
-                    <div class="form-group">
-                        <label for="programa">
-                            <strong>Direccion:</strong>
-                        </label>
-                    <input type="text" name="direccion" class="form-control" id="direccion" placeholder="Direccion"
-                        disabled
-                        value="{{ old('direccion:', $action->direccion . '- Telefono:  ' . $action->telefono) }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="descripcion">
-                            <strong>Descripción de la actividad:</strong>
-                        </label>
-                        <textarea name="descripcion" class="form-control" id="descripcion" placeholder="Descripción de la actividad" disabled rows="4">
-                            {{ old('descripcion', $action->descripcion . "\n- Código: " . $action->codigo) }}
-                        </textarea>
-                    </div>
                     
 
                 </div>
@@ -165,22 +146,28 @@
 
             </form>
 
-            @if (count($imagenes) > 0)
-                <div class="alert alert-success">
-                    <ul>
-                        @foreach ($imagenes as $imagen)
-                            <img src="{{ $imagen->image_path }}" alt="{{ $imagen->name }}" width="400" height="400">
-                        @endforeach
-                    </ul>
-                </div>
+           
+            @if (($action->documentos) )
+            <div class="alert alert-danger">
+                <p>Documentos:</p>
+                <ul>
+                    @foreach ($action->documentos as $documento)
+
+                 
+
+                    <li><i class="fa fa-file-pdf"></i> <a href="{{ $documento->path }}" alt="{{ $documento->name }}"  target="_blank"> {{ $documento->name }}</a><li>
+                    @endforeach
+                </ul>
+            </div>
+            @else 
+                <p>Sin Documentos</p>
             @endif
 
 
-
             <div class="container mt-3">
-                <h3 class="text-center mb-3" style="color:#c7f8c7;"><i class="fa fa-camera" aria-hidden="true"></i> Agregar
-                    Fotos <i class="fa fa-picture-o" aria-hidden="true"></i></h3>
-                <form action="{{ route('imageUpload') }}" method="post" enctype="multipart/form-data">
+                <h3 class="text-center mb-3" style="color:#45c3f5;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Agregar
+                    Documentos <i class="fa fa-file-pdf-o" aria-hidden="true"></i></h3>
+                <form action="{{ route('documentUpload') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
@@ -205,17 +192,17 @@
                     <div class="custom-file">
 
 
-                        <input type="file" name="imageFile[]" class="custom-file-input" id="images"
+                        <input type="file" name="documentFile[]" class="custom-file-input" id="documentFile"
                             multiple="multiple">
 
-                        <label class="custom-file-label" for="images" data-browse="Elegir imagen">click aqui para Elegir
-                            imagen</label>
+                        <label class="custom-file-label" for="images" data-browse="Elegir documento">click aqui para Elegir
+                            documentos</label>
 
 
                     </div>
                     <input name="action_id" type="hidden" value="{{ $action->id }}">
                     <button type="submit" name="submit" class="btn btn-primary btn-block mt-2">
-                        Click para Subir las imágenes
+                        Click para Subir los documentos
                     </button>
                 </form>
             </div>

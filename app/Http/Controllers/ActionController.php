@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Action;
+use App\Models\ActionEntity;
+use App\Models\ActionTeam;
 use App\Models\Departamento;
 use App\Models\Entity;
+use App\Models\Image;
 use App\Models\Localidad;
 use App\Models\Program;
 use App\Models\Project;
@@ -13,12 +16,66 @@ use App\Models\Team;
 
 class ActionController extends Controller
 {
-    public function index()
+
+    public function documentUpload(Action $action)
     {
-        $actions = Action::with('localidad')->get();
-        return view('actions.index', compact('actions'));
-    
+
+        
+        
+       //print_r($action->documentos);
+     
+        return view('actions.document', compact('action'));
     }
+
+    public function index(Request $request)
+    {
+        // Iniciamos la consulta para obtener las acciones con la relación de 'localidad'
+        $query = Action::orderBy('id',  'desc')->with('localidad');
+
+        // Verificamos si hay un término de búsqueda
+        if ($request->has('search') && $request->search != null) {
+            $search = $request->search;
+            // Filtramos las acciones por el contenido de las columnas 'nombre' y 'descripcion', o por el nombre de la localidad
+            $query->where('nombre', 'LIKE', "%$search%")
+                ->orWhere('descripcion', 'LIKE', "%$search%")
+                ->orWhereHas('localidad', function ($q) use ($search) {
+                    $q->where('nombre', 'LIKE', "%$search%");
+                })
+                ->orWhereHas('entidad', function ($q) use ($search) {
+                    $q->where('nombre', 'LIKE', "%$search%");
+                });
+        }
+
+        // Ejecutamos la consulta y obtenemos las acciones filtradas
+        $actions = $query->get();
+
+        // Retornamos la vista con las acciones filtradas
+        return view('actions.index', compact('actions'));
+    }
+
+  
+  public function secundarios()
+  {
+        
+      
+      $entidades = Entity::all();
+      $personas = Team::all();
+
+     
+      return view('actions.secundarios', compact('personas','entidades'));
+  }
+  public function secundario(Action $action)
+  {
+         // Cargar todos los departamentos desde la base de datos
+      $localidades = Localidad::all();
+      $entidades = Entity::all();
+      $personas = Team::all();
+
+      $programs = Program::all();
+      $projects = Project::all();
+      return view('actions.secundario', compact('action','programs','projects','personas','localidades','entidades'));
+  }
+    
       // Mostrar el formulario para crear una nueva action
     public function create()
     {
@@ -35,6 +92,7 @@ class ActionController extends Controller
       // Almacenar una nueva action
     public function store(Request $request)
     {
+      
        
         $request->validate([
             'nombre' => 'required|string|max:255',
@@ -60,8 +118,40 @@ class ActionController extends Controller
         $action->descripcion = $request->descripcion;
         
         $action->save();
-        return redirect()->route('outlets.create', ['action_id' => $action->id])->with('success', 'Actividad creada correctamente.');
-      
+        //return redirect()->route('outlets.create', ['action_id' => $action->id])->with('success', 'Actividad creada correctamente.');
+        
+        $entidades = $request->input('entidades');
+       // dd($entidades);
+       if (is_array($entidades) || is_object($entidades))
+        {
+                foreach ($entidades as $entidad) {
+                    if(!empty($entidad)){
+                    //echo $entidad;
+                        ActionEntity::create([
+                            'action_id' =>  $action->id,
+                                'entity_id'   =>  $entidad
+                            ]);
+                    }
+                }   
+            }   
+
+        $personas = $request->input('teams');
+       // dd($personas);
+       if (is_array($personas) || is_object($personas))
+       {
+            foreach ($personas as $entidad) {
+                if(!empty($entidad)){
+                // echo $entidad->id;
+                    ActionTeam::create([
+                        'action_id' =>  $action->id,
+                            'teams_id'   =>  $entidad
+                        ]);
+                }
+            }   
+        }   
+
+
+        return redirect()->route('actions.show', $action)->with('success', 'Actividad creada correctamente.');
 
        // return redirect()->route('actions.index')->with('success', 'action creada correctamente.');
     }
@@ -70,7 +160,15 @@ class ActionController extends Controller
 
     public function show(Action $action)
     {
-        return view('actions.show', compact('action'));
+
+        $imgQuery = Image::query();
+        $imgQuery->where('action_id', '=', $action->id);
+        
+        $imagenes = $imgQuery->paginate(5);
+        
+       //print_r($action->personas);
+     
+        return view('actions.show', compact('action','imagenes'));
     }
 
     // Mostrar el formulario para editar una action
@@ -111,6 +209,38 @@ class ActionController extends Controller
         $action->tags = $request->tags;
         $action->descripcion = $request->descripcion;
         $action->save();
+        $action->secundarios()->delete();
+        $action->personas()->delete();
+
+        $entidades = $request->input('entidades');
+        // dd($entidades);
+        if (is_array($entidades) || is_object($entidades))
+        {
+            foreach ($entidades as $entidad) {
+                if(!empty($entidad)){
+                    // echo $entidad;
+                    ActionEntity::create([
+                        'action_id' =>  $action->id,
+                            'entity_id'   =>  $entidad
+                        ]);
+                }
+            }   
+        }   
+ 
+         $personas = $request->input('teams');
+        // dd($personas);
+        if (is_array($personas) || is_object($personas))
+        {
+            foreach ($personas as $entidad) {
+                if(!empty($entidad)){
+                    // echo $entidad->id;
+                    ActionTeam::create([
+                        'action_id' =>  $action->id,
+                            'teams_id'   =>  $entidad
+                        ]);
+                }
+            }   
+        } 
     
         return redirect()->route('actions.index')->with('success', 'action actualizada correctamente.');
     

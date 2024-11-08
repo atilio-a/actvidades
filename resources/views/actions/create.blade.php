@@ -1,9 +1,55 @@
-@extends('layouts.admin')
+@extends('layouts.admin2')
 
 @section('title', ' Actividades')
 @section('content-header', ' Actividades')
 
 @section('content')
+
+
+<style>
+  
+  .select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #cdd3f1;
+  border: 1px solid #3c3ff3;
+  border-radius: 4px;
+  cursor: default;
+  float: left;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 0 5px;
+}
+
+
+.select2-red + .select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #f1a5e5;
+  border: 1px solid #d1089f;
+  border-radius: 4px;
+  cursor: default;
+  float: left;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 0 5px;
+}
+</style>
+
+<script>
+  $(document).ready(function() {
+      // Initialize Select2
+      $(".js-example-responsive").select2({
+         
+         width: 'resolve' // need to override the changed default
+       });
+      $(".js-example").select2({
+         
+  width: 'resolve' // need to override the changed default
+});
+  });
+  
+</script>
+
+
+
+
 
     <div class="card">
         <div class="card-body">
@@ -34,6 +80,19 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="entity_id">Entidades secundarias</label>
+                   
+
+                    <select name="entidades[]" class="form-control js-example-responsive" multiple="multiple" style="width: 95%">
+
+
+
+                      @foreach ($entidades as $entidad)
+                      <option value="{{ $entidad->id }}">{{ $entidad->nombre }}</option>
+                  @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="team_id">Encargado principal</label>
                     <select name="team_id" class="form-control" required>
                         <!-- Aquí debes cargar los team_id desde tu base de datos -->
@@ -42,7 +101,17 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="entity_id">Personas Involucradas </label>
 
+                    <select name="teams[]" class="form-control js-example select2-red" multiple="multiple" style="width: 95%">
+
+                        <!-- Aquí debes cargar los departamentos desde tu base de datos -->
+                        @foreach ($personas as $persona)
+                        <option value="{{ $persona->id }}"> {{ $persona->nombre }} {{ $persona->apellido }}</option>
+                    @endforeach
+                    </select>
+                </div>
 
                 <div class="form-group">
                     <label for="team_id">Programa</label>
@@ -136,8 +205,9 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="fecha">fecha</label>
-                    <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @enderror"
+                    <label for="fecha">Fecha</label>
+                    <div class="col-4">
+                        <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @enderror"
                         id="fecha" placeholder="fecha" value="{{ old('fecha') }}">
                     @error('fecha')
                         <span class="invalid-feedback" role="alert">
@@ -145,10 +215,14 @@
                         </span>
                     @enderror
                 </div>
+              </div>
                 <div class="form-group">
-                    <label for="descripcion">descripcion</label>
-                    <input type="text" name="descripcion" class="form-control @error('descripcion') is-invalid @enderror"
-                        id="descripcion" placeholder="descripcion" value="{{ old('descripcion') }}">
+                    <label for="descripcion">Descripcion</label>
+
+                    <textarea type="text" class="form-control"  placeholder="Ingrese una descripcion"  name="descripcion">{{old('descripcion')}}</textarea>
+
+                    <!--input type="textarea" name="descripcion" class="form-control @error('descripcion') is-invalid @enderror"
+                        id="descripcion" placeholder="descripcion" value="{{ old('descripcion') }}" -->
                     @error('descripcion')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -157,6 +231,8 @@
                 </div>
                 <div class="form-group">
                     <label for="repuesta">repuesta</label>
+                    <div class="col-4">
+
                     <input type="text" name="repuesta" class="form-control @error('repuesta') is-invalid @enderror"
                         id="repuesta" placeholder="repuesta" value="{{ old('repuesta') }}">
                     @error('repuesta')
@@ -165,8 +241,11 @@
                         </span>
                     @enderror
                 </div>
+            </div>
                 <div class="form-group">
                     <label for="respuesta_fecha">respuesta_fecha</label>
+                    <div class="col-4">
+
                     <input type="date" name="respuesta_fecha" class="form-control @error('respuesta_fecha') is-invalid @enderror"
                         id="respuesta_fecha" placeholder="respuesta_fecha" value="{{ old('respuesta_fecha') }}">
                     @error('respuesta_fecha')
@@ -176,7 +255,7 @@
                     @enderror
                 </div>
 
-
+            </div>
 
                 <button class="btn btn-success btn-block btn-lg" type="submit">Registrar Actividad</button>
             </form>
