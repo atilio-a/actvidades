@@ -29,6 +29,37 @@ class ActionController extends Controller
 
     public function index(Request $request)
     {
+        // Iniciamos la consulta para obtener las acciones con la relación de 'localidad' y 'departamento' de la localidad
+        $query = Action::orderBy('id', 'desc')->with('localidad.departamento');
+
+        // Verificamos si hay un término de búsqueda
+        if ($request->has('search') && $request->search != null) {
+            $search = $request->search;
+            // Filtramos las acciones por el contenido de las columnas 'nombre' y 'descripcion', o por el nombre de la localidad
+            $query->where('nombre', 'LIKE', "%$search%")
+                ->orWhere('descripcion', 'LIKE', "%$search%")
+                ->orWhere('fecha', 'LIKE', "%$search%")
+
+                ->orWhereHas('localidad', function ($q) use ($search) {
+                    $q->where('nombre', 'LIKE', "%$search%")
+                      ->orWhereHas('departamento', function ($q) use ($search) {
+                          $q->where('nombre', 'LIKE', "%$search%");
+                      });
+                })
+                ->orWhereHas('entidad', function ($q) use ($search) {
+                    $q->where('nombre', 'LIKE', "%$search%");
+                });
+        }
+
+        // Ejecutamos la consulta y obtenemos las acciones filtradas
+        $actions = $query->get();
+
+        // Retornamos la vista con las acciones filtradas
+        return view('actions.index', compact('actions'));
+    }
+
+    public function index2(Request $request)
+    {
         // Iniciamos la consulta para obtener las acciones con la relación de 'localidad'
         $query = Action::orderBy('id',  'desc')->with('localidad');
 

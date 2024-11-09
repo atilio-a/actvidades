@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin2')
 
 @section('title', 'Datos de la action')
 @section('content-header', 'Actividad')
@@ -155,7 +155,9 @@
 
                  
 
-                    <li><i class="fa fa-file-pdf"></i> <a href="{{ $documento->path }}" alt="{{ $documento->name }}"  target="_blank"> {{ $documento->name }}</a><li>
+                    <li><i class="fa fa-file-pdf"></i> <a href="{{ $documento->path }}" alt="{{ $documento->name }}"  target="_blank"> {{ $documento->name }}</a> - <i class="fa fa-trash" aria-hidden="true"></i><button class="btn btn-danger btn-delete"
+                        data-url="{{ route('documentUpload.destroy', $documento) }}"><i
+                            class="fas fa-trash"></i>Eliminar Documento</button><li>
                     @endforeach
                 </ul>
             </div>
@@ -223,33 +225,50 @@
 
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    
+   
     <script>
-        $(function() {
-            // Multiple images preview with JavaScript
-            var multiImgPreview = function(input, imgPreviewPlaceholder) {
+        $(document).ready(function() {
 
-                if (input.files) {
-                    var filesAmount = input.files.length;
 
-                    for (i = 0; i < filesAmount; i++) {
-                        var reader = new FileReader();
+            setTimeout(function(){
+            $("div.alert-success").remove();
+            }, 8000 ); //remueve los mensajes de alerta  8 secs
 
-                        reader.onload = function(event) {
-                            $($.parseHTML('<img width="200" height="100" >')).attr('src', event.target
-                                .result).appendTo(imgPreviewPlaceholder);
-                        }
 
-                        reader.readAsDataURL(input.files[i]);
+            $(document).on('click', '.btn-delete', function() {
+                $this = $(this);
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                })
+
+                swalWithBootstrapButtons.fire({
+                    title: 'Seguro?',
+                    text: "Realmente quiere eliminar este Documento?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, borrar!',
+                    cancelButtonText: 'No',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        $.post($this.data('url'), {
+                            _method: 'DELETE',
+                            _token: '{{ csrf_token() }}'
+                        }, function(res) {
+                            $this.closest('li').fadeOut(500, function() {
+                                $(this).remove();
+                            })
+                        })
                     }
-                }
-
-            };
-
-            $('#images').on('change', function() {
-                multiImgPreview(this, 'div.imgPreview');
-            });
-        });
+                })
+            })
+        })
     </script>
 
 
