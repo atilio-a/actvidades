@@ -13,7 +13,7 @@ class AuthorizationException extends Exception
      * @var \Illuminate\Auth\Access\Response
      */
     protected $response;
-
+  
     /**
      * The HTTP response status code.
      *
