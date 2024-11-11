@@ -57,5 +57,17 @@ class Action extends Model
     {
         return $this->hasMany(Document::class);
     }
+
+
+    public function estado()
+    {
+        return $this->belongsTo(ActionState::class,'estate_id');
+    }
+
+    public function tipo()
+    {
+        return $this->belongsTo(ActionType::class,'type_id');
+    }
+      
         
 }

@@ -7,3 +7,4 @@ inicio
 *.docx
 /vendor
 main
+node_modules
