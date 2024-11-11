@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ActionController;
+use App\Http\Controllers\ActionStateController;
+use App\Http\Controllers\ActionTypeController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CreditController;
@@ -194,6 +196,22 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('projects/{project}',    [ProjectController::class, 'show'])->name('projects.show');
 
 
+    Route::resource('actionStates', ActionStateController::class);
+    Route::get('/actionStates', [ActionStateController::class, 'index'])->name('actionStates.index');
+    Route::get('actionStates/{actionState}/edit',   [ActionStateController::class, 'edit'])->name('actionStates.edit');
+    Route::get('actionStates/create', [ActionStateController::class, 'create'])->name('actionStates.create');
+    Route::put('actionStates/{actionState}', [ActionStateController::class, 'update'])->name('actionStates.update');
+    Route::delete('actionStates/{actionState}', [ActionStateController::class, 'destroy'])->name('actionStates.destroy');
+    Route::get('actionStates/{actionState}',    [ActionStateController::class, 'show'])->name('actionStates.show');
+
+    Route::resource('actionTypes', ActionTypeController::class);
+    Route::get('/actionTypes', [ActionTypeController::class, 'index'])->name('actionTypes.index');
+    Route::get('actionTypes/{actionState}/edit',   [ActionTypeController::class, 'edit'])->name('actionTypes.edit');
+    Route::get('actionTypes/create', [ActionTypeController::class, 'create'])->name('actionTypes.create');
+    Route::put('actionTypes/{actionState}', [ActionTypeController::class, 'update'])->name('actionTypes.update');
+    Route::delete('actionTypes/{actionState}', [ActionTypeController::class, 'destroy'])->name('actionTypes.destroy');
+    Route::get('actionTypes/{actionState}',    [ActionTypeController::class, 'show'])->name('actionTypes.show');
+
 
     Route::get('/orderItems', [OrderItemController::class, 'index'])->name('orderItems.index');
 
@@ -219,6 +237,7 @@ Route::get('/document-upload', 'DocumentUpload@createForm');
 // Store image
 Route::post('/document-upload', [DocumentUpload::class, 'DocumentUpload'])->name('documentUpload');
 
+Route::delete('document-upload/{document}', [DocumentUpload::class, 'destroy'])->name('documentUpload.destroy');
 
 
 

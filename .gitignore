@@ -2,4 +2,8 @@
 .env
 *.7z
 laravel-leaflet.7z
+inicio
+*.pdf
+*.docx
 /vendor
+main
