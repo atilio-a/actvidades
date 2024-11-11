@@ -40,10 +40,28 @@
          width: 'resolve' // need to override the changed default
        });
       $(".js-example").select2({
-         
-  width: 'resolve' // need to override the changed default
-});
+                
+        width: 'resolve' // need to override the changed default
+        });
+
+        $(".js-example-tags").select2({
+            
+            tags: true,
+            placeholder: "Si desea agregar las palabras claves escriba sus palabras claves y presione el boton  enter ",
+            formatNoMatches: "noResultses ",
+            language: {
+            noResults: function () {
+                    return "escriba sus palabras claves y presione el boton  enter";
+                }
+            }
+            
+            });
+
+
   });
+
+
+  
   
 </script>
 
@@ -110,6 +128,26 @@
                         @foreach ($personas as $persona)
                         <option value="{{ $persona->id }}"> {{ $persona->nombre }} {{ $persona->apellido }}</option>
                     @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tipo_id">Tipo</label>
+                    <select name="tipo_id" class="form-control" required>
+                        <!-- Aquí debes cargar los team_id desde tu base de datos -->
+                        @foreach ($tipos as $tipo)
+                            <option value="{{ $tipo->id }}"> {{ $tipo->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="team_id">Estado</label>
+                    <select name="estado_id" class="form-control" required>
+                        <!-- Aquí debes cargar los team_id desde tu base de datos -->
+                        @foreach ($estados as $estado)
+                            <option value="{{ $estado->id }}"> {{ $estado->nombre }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -196,8 +234,13 @@
 
                 <div class="form-group">
                     <label for="tags">tags</label>
-                    <input type="text" name="tags" class="form-control @error('tags') is-invalid @enderror"
-                        id="tags" placeholder="tags" value="{{ old('tags') }}">
+
+                    <select class="js-example-tags" name="tags" id="tags" multiple="multiple" style="width: 95%">
+                       
+                       
+                      </select>
+
+                    
                     @error('tags')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

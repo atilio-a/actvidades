@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Action;
 use App\Models\ActionEntity;
+use App\Models\ActionState;
 use App\Models\ActionTeam;
+use App\Models\ActionType;
 use App\Models\Departamento;
 use App\Models\Entity;
 use App\Models\Image;
@@ -19,7 +21,6 @@ class ActionController extends Controller
 
     public function documentUpload(Action $action)
     {
-
         
         
        //print_r($action->documentos);
@@ -115,9 +116,12 @@ class ActionController extends Controller
         $entidades = Entity::all();
         $personas = Team::all();
 
+        $estados = ActionState::all();
+         $tipos = ActionType::all();
+
         $programs = Program::all();
         $projects = Project::all();
-        return view('actions.create', compact('programs','projects','personas','localidades','entidades'));
+        return view('actions.create', compact('estados','tipos','programs','projects','personas','localidades','entidades'));
     }
 
       // Almacenar una nueva action
@@ -147,6 +151,9 @@ class ActionController extends Controller
         $action->monto_estimado = $request->monto_estimado;
         $action->tags = $request->tags;
         $action->descripcion = $request->descripcion;
+
+        $action->type_id = $request->tipo_id;
+        $action->estate_id = $request->estado_id;
         
         $action->save();
         //return redirect()->route('outlets.create', ['action_id' => $action->id])->with('success', 'Actividad creada correctamente.');
@@ -197,7 +204,7 @@ class ActionController extends Controller
         
         $imagenes = $imgQuery->paginate(5);
         
-       //print_r($action->personas);
+     //  print_r($action->estado);
      
         return view('actions.show', compact('action','imagenes'));
     }

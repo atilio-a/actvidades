@@ -123,7 +123,26 @@
                         @endif
                      </div>
 
-                    
+                     @if (!empty($action->estado )  )
+                  
+                     <div class="form-group">
+                        <label for="estado">
+                            <strong>Estado:</strong>
+                        </label>
+                        <input type="text" name="estado" class="form-control" id="estado" placeholder="estado"
+                            disabled value="{{ old('estado', $action->estado->nombre) }}">
+                    </div>
+                    @endif
+                    @if (!empty($action->tipo )  )
+                    <div class="form-group">
+                        <label for="Tipo">
+                            <strong>Tipo:</strong>
+                        </label>
+                        <input type="text" name="tipo" class="form-control" id="tipo" placeholder="tipo"
+                            disabled value="{{ old('tipo', $action->tipo->nombre) }}">
+                    </div>
+
+                    @endif
                     <div class="form-group">
                         <label for="programa">
                             <strong>Programa:</strong>
