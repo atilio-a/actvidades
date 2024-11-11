@@ -235,7 +235,7 @@
                 <div class="form-group">
                     <label for="tags">tags</label>
 
-                    <select class="js-example-tags" name="tags" id="tags" multiple="multiple" style="width: 95%">
+                    <select class="js-example-tags" name="tags[]" id="tags" multiple="multiple" style="width: 95%">
                        
                        
                       </select>

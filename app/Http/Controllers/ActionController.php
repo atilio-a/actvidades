@@ -128,7 +128,7 @@ class ActionController extends Controller
     public function store(Request $request)
     {
       
-       
+     
         $request->validate([
             'nombre' => 'required|string|max:255',
             'localidad_id' => 'required|exists:localidades,id'
@@ -154,6 +154,19 @@ class ActionController extends Controller
 
         $action->type_id = $request->tipo_id;
         $action->estate_id = $request->estado_id;
+        $tags = $request->input('tags');
+        // dd($entidades);
+        $palabras='' ;
+        if (is_array($tags) || is_object($tags))
+         {
+                 foreach ($tags as $tag) {
+                     if(!empty($tag)){
+                     
+                        $palabras  = $palabras. $tag.' - '  ;
+                     }
+                 }   
+             }   
+             $action->tags =  $palabras;
         
         $action->save();
         //return redirect()->route('outlets.create', ['action_id' => $action->id])->with('success', 'Actividad creada correctamente.');

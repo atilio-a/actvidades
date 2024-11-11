@@ -176,7 +176,14 @@
                         </textarea>
                     </div>
                     
-
+                    <div class="form-group">
+                        <label for="programa">
+                            <strong>palabas Claves:</strong>
+                        </label>
+                    <input type="text" name="tags" class="form-control" id="tags" placeholder="tags"
+                        disabled
+                        value="{{ old('tags:', $action->tags) }}">
+                    </div>
                 </div>
 
 
