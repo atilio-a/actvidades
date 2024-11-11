@@ -72,6 +72,7 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
+
                     <a href="{{ route('actionStates.index') }}" class="nav-link {{ activeSegment('actionState') }}">
                         <i class="nav-icon fas fa-th-list"></i>
                         <p>Estados</p>
@@ -81,6 +82,16 @@
                     <a href="{{ route('actionTypes.index') }}" class="nav-link {{ activeSegment('actionType') }}">
                         <i class="nav-icon fas fa-th-list"></i>
                         <p>Tipos</p>
+
+                    <a href="{{ route('actionTypes.index') }}" class="nav-link {{ activeSegment('actionTypes') }}">
+                        <i class="nav-icon fas fa-address-book"></i>
+                        <p>Tipos</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('actionStates.index') }}" class="nav-link {{ activeSegment('actionStates') }}">
+                        <i class="nav-icon fas fa-address-book"></i>
+                        <p>Estados</p>
                     </a>
                 </li>
 
