@@ -79,6 +79,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('creditos', CreditController::class);
 
     Route::delete('usuarios/{user}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
+    //Route::delete('image-upload/{image}', [FileUpload::class, 'destroy']);
 
     Route::resource('usuarios', UsuarioController::class);
 
@@ -104,6 +105,17 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('actions/{action}/secundario', [ActionController::class, 'storeSecundario'])->name('actions.storeSecundario');
 
     Route::get('actions/{action}/documentUpload', [ActionController::class, 'documentUpload'])->name('actions.documentUpload');
+
+
+    Route::get('galeria', [FileUpload::class, 'index'])->name('image.gallery');
+    Route::delete('galeria/{id}', [FileUpload::class, 'eliminar'])->name('file.eliminar');
+
+
+    Route::post('image-gallery', [FileUpload::class, 'upload'])->name('file.upload');
+
+    //Route::delete('image-gallery/{id}', 'ImageGalleryController@destroy');
+
+
 
 
 
@@ -238,6 +250,7 @@ Route::get('/document-upload', 'DocumentUpload@createForm');
 Route::post('/document-upload', [DocumentUpload::class, 'DocumentUpload'])->name('documentUpload');
 
 Route::delete('document-upload/{document}', [DocumentUpload::class, 'destroy'])->name('documentUpload.destroy');
+Route::delete('image-upload/{image}', [FileUpload::class, 'destroy'])->name('image.destroy');
 
 
 
