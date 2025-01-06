@@ -19,6 +19,20 @@ use App\Models\Team;
 class ActionController extends Controller
 {
 
+
+    public function imagenesUpload(Action $action)
+    {
+        $imgQuery = Image::query();
+        $imgQuery->where('action_id', '=', $action->id);
+        
+        $imagenes = $imgQuery->paginate(25);
+        
+        
+       //print_r($action->documentos);
+     
+        return view('actions.imagen', compact('action','imagenes'));
+    }
+
     public function documentUpload(Action $action)
     {
         
@@ -227,7 +241,7 @@ class ActionController extends Controller
         $imgQuery = Image::query();
         $imgQuery->where('action_id', '=', $action->id);
         
-        $imagenes = $imgQuery->paginate(5);
+        $imagenes = $imgQuery->paginate(25);
         
      //  print_r($action->estado);
      

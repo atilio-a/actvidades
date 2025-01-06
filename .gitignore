@@ -10,3 +10,5 @@ main
 node_modules
 public/uploads/IMG-20191022-WA0000.jpg
 public/uploads/IMG-20191119-WA0002.jpg
+*.zip
+*.jpg

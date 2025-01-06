@@ -65,19 +65,7 @@
 
 
     <h3>Galeria de Imagenes</h3>
-    <div class="row">
-        <div class="col-md-12">
-            <form method="GET" action="{{ route('image.gallery') }}" class="row">
-                <div class="col-md-6">
-                    <input type="input" name="search" class="form-control" placeholder="Buscar..." value="{{ request()->get('search') }}">
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-filter"></i> Buscar </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <hr>
+
 
 
     <div class="row">
@@ -87,9 +75,6 @@
 
 
             @if($images->count())
-            <form action="{{ route('file.descargar') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-
 
                 @foreach($images as $image)
 
@@ -107,18 +92,19 @@
 
                     </a>
 
+                    <form action="{{ url('admin/galeria',$image->id) }}" method="POST">
 
-                     <input  class="close-icon btn btn-sucess" type="checkbox" name="numero[]" value="{{ $image->id }}" >
+                    <input type="hidden" name="_method" value="delete">
 
-                    
+                    {!! csrf_field() !!}
+
+                    <button type="submit" class="close-icon btn btn-danger"><i class="glyphicon glyphicon-remove"></i></button>
+
+                    </form>
 
                 </div> <!-- col-6 / end -->
 
                 @endforeach
-                <button class="btn btn-success btn-block btn-lg" type="submit" >Descargar Imagenes Seleccionadas</button>
-
-            </form>
-
 
             @endif
 

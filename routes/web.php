@@ -105,13 +105,18 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('actions/{action}/secundario', [ActionController::class, 'storeSecundario'])->name('actions.storeSecundario');
 
     Route::get('actions/{action}/documentUpload', [ActionController::class, 'documentUpload'])->name('actions.documentUpload');
+    Route::get('actions/{action}/imagenesUpload', [ActionController::class, 'imagenesUpload'])->name('actions.imagenesUpload');
 
+    Route::get('archivos', [DocumentUpload::class, 'index'])->name('archivos.gallery');
 
     Route::get('galeria', [FileUpload::class, 'index'])->name('image.gallery');
     Route::delete('galeria/{id}', [FileUpload::class, 'eliminar'])->name('file.eliminar');
+    Route::delete('imagen/{id}', [FileUpload::class, 'eliminar'])->name('imagen.eliminar');
 
 
     Route::post('image-gallery', [FileUpload::class, 'upload'])->name('file.upload');
+    Route::post('descargar-galeria', [FileUpload::class, 'descargar'])->name('file.descargar');
+    Route::post('descargar-archivos', [DocumentUpload::class, 'descargar'])->name('archivos.descargar');
 
     //Route::delete('image-gallery/{id}', 'ImageGalleryController@destroy');
 
