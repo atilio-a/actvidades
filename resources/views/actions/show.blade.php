@@ -18,9 +18,7 @@
         class="fa fa-file-pdf-o"></i> Registar Documentos<i class="fa fa-file-pdf"></i></a>
 
 
-        <a href="{{ route('actions.imagenesUpload',  $action->id) }}" class="btn btn-primary"><i
-            class="fa fa-image"></i> Registar Imagenes<i class="fa fa-image"></i></a>
-    
+        
     <div class="card">
         <div class="card-body">
             {{-- aqui la ruto esta rara del accion, es mas no tendria accion porque es un show --}}
