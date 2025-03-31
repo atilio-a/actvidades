@@ -19,6 +19,20 @@ use App\Models\Team;
 class ActionController extends Controller
 {
 
+
+    public function imagenesUpload(Action $action)
+    {
+        $imgQuery = Image::query();
+        $imgQuery->where('action_id', '=', $action->id);
+        
+        $imagenes = $imgQuery->paginate(25);
+        
+        
+       //print_r($action->documentos);
+     
+        return view('actions.imagen', compact('action','imagenes'));
+    }
+
     public function documentUpload(Action $action)
     {
         
@@ -39,6 +53,8 @@ class ActionController extends Controller
             // Filtramos las acciones por el contenido de las columnas 'nombre' y 'descripcion', o por el nombre de la localidad
             $query->where('nombre', 'LIKE', "%$search%")
                 ->orWhere('descripcion', 'LIKE', "%$search%")
+                ->orWhere('tags', 'LIKE', "%$search%")
+
                 ->orWhere('fecha', 'LIKE', "%$search%")
 
                 ->orWhereHas('localidad', function ($q) use ($search) {
@@ -70,6 +86,7 @@ class ActionController extends Controller
             // Filtramos las acciones por el contenido de las columnas 'nombre' y 'descripcion', o por el nombre de la localidad
             $query->where('nombre', 'LIKE', "%$search%")
                 ->orWhere('descripcion', 'LIKE', "%$search%")
+                ->orWhere('tags', 'LIKE', "%$search%")
                 ->orWhereHas('localidad', function ($q) use ($search) {
                     $q->where('nombre', 'LIKE', "%$search%");
                 })
@@ -112,15 +129,24 @@ class ActionController extends Controller
     public function create()
     {
            // Cargar todos los departamentos desde la base de datos
-        $localidades = Localidad::all();
-        $entidades = Entity::all();
-        $personas = Team::all();
+       // $localidades = Localidad::all();
+        $localidades = Localidad::orderBy('nombre', 'asc')->get();
+
+        //$entidades = Entity::all();
+        $entidades = Entity::orderBy('nombre', 'asc')->get();
+
+        //$personas = Team::all();
+        $personas = Team::orderBy('nombre', 'asc')->get();
+
 
         $estados = ActionState::all();
          $tipos = ActionType::all();
 
-        $programs = Program::all();
-        $projects = Project::all();
+       // $programs = Program::all();
+        $programs = Program::orderBy('nombre', 'asc')->get();
+       // $projects = Project::all();
+        $projects = Project::orderBy('nombre', 'asc')->get();
+
         return view('actions.create', compact('estados','tipos','programs','projects','personas','localidades','entidades'));
     }
 
@@ -215,7 +241,7 @@ class ActionController extends Controller
         $imgQuery = Image::query();
         $imgQuery->where('action_id', '=', $action->id);
         
-        $imagenes = $imgQuery->paginate(5);
+        $imagenes = $imgQuery->paginate(25);
         
      //  print_r($action->estado);
      

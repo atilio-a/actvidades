@@ -17,6 +17,8 @@
     <a href="{{ route('actions.documentUpload',  $action->id) }}" class="btn btn-danger"><i
         class="fa fa-file-pdf-o"></i> Registar Documentos<i class="fa fa-file-pdf"></i></a>
 
+
+        
     <div class="card">
         <div class="card-body">
             {{-- aqui la ruto esta rara del accion, es mas no tendria accion porque es un show --}}
@@ -191,15 +193,128 @@
 
             </form>
 
-            @if (count($imagenes) > 0)
-                <div class="alert alert-success">
-                    <ul>
-                        @foreach ($imagenes as $imagen)
-                            <img src="{{ $imagen->image_path }}" alt="{{ $imagen->name }}" width="400" height="400">
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            <style type="text/css">
+                #boton {background: rgb(238, 232, 232);
+                        float: right;
+                        position: absolute;
+                        }
+                img{float: left;}   
+                 
+                </style>
+@if (count($imagenes) > 0)
+                
+<table>
+
+@foreach($imagenes as $image)
+
+@if( $loop->first) 
+<tr>
+@endif
+
+
+    @if( $loop->first or $loop->iteration  <= 3 )             
+            <td> 
+                
+                
+                
+                <div id="boton">
+                    <form method="POST" action="{{ route('image.destroy', $image) }}">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}       
+                      <input type="submit" class="delete-user btn-danger" value="Borrar">
+                    </form>
+               </div>
+                <a href="{{ $image->image_path }}" alt="{{ $image->name }}"  target="_blank"><img src="{{ $image->image_path }}" alt="{{ $image->name }}" width  ="250" height  ="250">
+            </a>
+            </td>       
+    @endif
+    @if($loop->iteration  == 3) 
+        </tr>
+    @endif
+    @if($loop->iteration  == 4) 
+    <tr>
+    @endif
+    @if(  $loop->iteration  > 3 and $loop->iteration  <= 6)          
+        <td>  
+            <div id="boton">
+                <form method="POST" action="{{ route('image.destroy', $image) }}">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}       
+                  <input type="submit" class="delete-user btn-danger" value="Borrar">
+                </form>
+           </div><a href="{{ $image->image_path }}" alt="{{ $image->name }}"  target="_blank"><img src="{{ $image->image_path }}" alt="{{ $image->name }}" width  ="250" height  ="250">
+        </a>
+        </td>
+        
+     @endif
+     @if($loop->iteration  == 6) 
+    </tr>
+    @endif
+
+    @if($loop->iteration  == 7) 
+    <tr>
+    @endif
+    @if(  $loop->iteration  > 6 and $loop->iteration  <= 9)          
+        <td>   <div id="boton">
+            <form method="POST" action="{{ route('image.destroy', $image) }}">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}       
+              <input type="submit" class="delete-user btn-danger" value="Borrar">
+            </form>
+       </div>
+            
+            <a href="{{ $image->image_path }}" alt="{{ $image->name }}"  target="_blank"><img src="{{ $image->image_path }}" alt="{{ $image->name }}" width  ="250" height  ="250">
+        </a>
+        </td>
+        
+     @endif
+     @if($loop->iteration  == 9) 
+    </tr>
+    @endif
+
+    @if($loop->iteration  == 10) 
+    <tr>
+    @endif
+    @if(  $loop->iteration  > 9 and $loop->iteration  <= 12)          
+        <td> 
+             <div id="boton">
+            <form method="POST" action="{{ route('image.destroy', $image) }}">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}       
+              <input type="submit" class="delete-user btn-danger" value="Borrar">
+            </form>
+       </div>
+         <a href="{{ $image->image_path }}" alt="{{ $image->name }}"  target="_blank"><img src="{{ $image->image_path }}" alt="{{ $image->name }}" width  ="250" height  ="250">
+        </a>
+        </td>
+        
+     @endif
+     @if($loop->iteration  == 12) 
+    </tr>
+    @endif
+    @if($loop->iteration  == 13) 
+    <tr>
+    @endif
+    @if(  $loop->iteration  > 12 and $loop->iteration  <= 15)          
+        <td>   <div id="boton">
+            <form method="POST" action="{{ route('image.destroy', $image) }}">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}       
+              <input type="submit" class="delete-user btn-danger" value="Borrar">
+            </form>
+       </div> <a href="{{ $image->image_path }}" alt="{{ $image->name }}"  target="_blank"><img src="{{ $image->image_path }}" alt="{{ $image->name }}" width  ="250" height  ="250">
+        </a>
+        </td>
+        
+     @endif
+     @if($loop->iteration  == 15) 
+    </tr>
+    @endif
+ @endforeach
+</table>
+
+
+@endif
 
 
 
@@ -264,6 +379,10 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script>
+
+
+
+
         $(function() {
             // Multiple images preview with JavaScript
             var multiImgPreview = function(input, imgPreviewPlaceholder) {
@@ -275,7 +394,7 @@
                         var reader = new FileReader();
 
                         reader.onload = function(event) {
-                            $($.parseHTML('<img width="200" height="100" >')).attr('src', event.target
+                            $($.parseHTML('<img width="200" height  ="250" >')).attr('src', event.target
                                 .result).appendTo(imgPreviewPlaceholder);
                         }
 
@@ -291,6 +410,53 @@
         });
     </script>
 
+<!-- jQuery -->
+<script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    
+<script>
+    $(document).ready(function() {
+
+
+        setTimeout(function(){
+        $("div.alert-success").remove();
+        }, 8000 ); //remueve los mensajes de alerta  8 secs
+
+
+        $(document).on('click', '.btn-delete', function() {
+            $this = $(this);
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Seguro?',
+                text: "Realmente quiere eliminar esta Imagen?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, borrar!',
+                cancelButtonText: 'No',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                 //   alert($this.data('url'));
+                    $.post($this.data('url'), {
+                        _method: 'DELETE',
+                        _token: '{{ csrf_token() }}'
+                    }, function(res) {
+                      //  alert(res);
+                        $this.closest('li').fadeOut(500, function() {
+                            $(this).remove();
+                        })
+                    })
+                }
+            })
+        })
+    })
+</script>
 
 
 

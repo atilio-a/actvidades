@@ -1,6 +1,6 @@
 @extends('layouts.admin2')
 
-@section('title', 'Datos de la action')
+@section('title', 'Imagenes de la actividad')
 @section('content-header', 'Actividad')
 
 @section('content')
@@ -149,28 +149,34 @@
             </form>
 
            
-            @if (($action->documentos) )
+            @if (($action->imagenes) )
             <div class="alert alert-danger">
-                <p>Documentos:</p>
+                <p>imagenes:</p>
                 <ul>
-                    @foreach ($action->documentos as $documento)
+                    @foreach ($action->imagenes as $image)
 
                  
 
-                    <li><i class="fa fa-file-pdf"></i> <a href="{{ $documento->path }}" alt="{{ $documento->name }}"  target="_blank"> {{ $documento->name }}</a> - <i class="fa fa-trash" aria-hidden="true"></i><button class="btn btn-danger btn-delete"
-                        data-url="{{ route('documentUpload.destroy', $documento) }}"><i
-                            class="fas fa-trash"></i>Eliminar Documento</button><li>
+                    <li>
+                        
+                        
+                        <a href="{{ $image->image_path }}" alt="{{ $image->name }}"  target="_blank"><img src="{{ $image->image_path }}" alt="{{ $image->name }}" width  ="250" height  ="250">
+
+                        
+                        <button class="btn btn-danger btn-delete"
+                        data-url="{{ route('documentUpload.destroy', $image) }}"><i
+                            class="fas fa-trash"></i>Eliminar image</button><li>
                     @endforeach
                 </ul>
             </div>
             @else 
-                <p>Sin Documentos</p>
+                <p>Sin imagenes</p>
             @endif
 
 
             <div class="container mt-3">
                 <h3 class="text-center mb-3" style="color:#45c3f5;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Agregar
-                    Documentos <i class="fa fa-file-pdf-o" aria-hidden="true"></i></h3>
+                    imagenes <i class="fa fa-file-pdf-o" aria-hidden="true"></i></h3>
                 <form action="{{ route('documentUpload') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @if ($message = Session::get('success'))
@@ -199,14 +205,14 @@
                         <input type="file" name="documentFile[]" class="custom-file-input" id="documentFile"
                             multiple="multiple">
 
-                        <label class="custom-file-label" for="images" data-browse="Elegir documento">click aqui para Elegir
-                            documentos</label>
+                        <label class="custom-file-label" for="images" data-browse="Elegir image">click aqui para Elegir
+                            imagenes</label>
 
 
                     </div>
                     <input name="action_id" type="hidden" value="{{ $action->id }}">
                     <button type="submit" name="submit" class="btn btn-primary btn-block mt-2">
-                        Click para Subir los documentos
+                        Click para Subir los imagenes
                     </button>
                 </form>
             </div>
@@ -251,7 +257,7 @@
 
                 swalWithBootstrapButtons.fire({
                     title: 'Seguro?',
-                    text: "Realmente quiere eliminar este Documento?",
+                    text: "Realmente quiere eliminar este image?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Si, borrar!',
